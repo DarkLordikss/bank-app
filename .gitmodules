@@ -1,3 +1,6 @@
 [submodule "bank-gateway-api"]
 	path = bank-gateway-api
 	url = https://github.com/DarkLordikss/bank-gateway-api
+[submodule "Internet-Bank-Client"]
+	path = Internet-Bank-Client
+	url = https://github.com/VictoriasCloud/Internet-Bank-Client

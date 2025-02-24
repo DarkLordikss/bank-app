@@ -127,7 +127,7 @@ services:
     hostname: rabbitmq
     restart: always
     env_file:
-      - ./rabbitmq/.env.rabbit
+      - ./.env.rabbit
     expose:
       - "5672"
     ports:

@@ -1,9 +1,9 @@
 [submodule "bank-gateway-api"]
 	path = bank-gateway-api
-	url = https://github.com/DarkLordikss/bank-gateway-api
+	url = git@github.com:DarkLordikss/bank-gateway-api.git
 [submodule "Internet-Bank-Client"]
 	path = Internet-Bank-Client
-	url = https://github.com/VictoriasCloud/Internet-Bank-Client
+	url = git@github.com:VictoriasCloud/Internet-Bank-Client.git
 [submodule "user-microservice-rust"]
 	path = user-microservice-rust
-	url = https://github.com/L11D/user-microservice-rust.git
+	url = git@github.com:L11D/user-microservice-rust.git

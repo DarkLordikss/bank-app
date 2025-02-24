@@ -74,8 +74,6 @@ services:
       - "8000"
     env_file:
       - ./bank-gateway-api/.env
-    depends_on:
-      - client-ui
     networks:
       - gateway-net
 

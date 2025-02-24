@@ -1,0 +1,131 @@
+version: '3.8'
+
+services:
+#----------------------------------------#
+#---------|Прокси и сертификаты|---------#
+#----------------------------------------#
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    depends_on:
+      - client-ui
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./data/certs:/etc/nginx/certs
+      - ./data/vhost.d:/etc/nginx/vhost.d
+      - ./data/html:/usr/share/nginx/html
+    environment:
+      - ENABLE_IPV6=true
+    networks:
+      - default
+      - nginx-net
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    restart: always
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/certs:/etc/nginx/certs
+      - ./data/vhost.d:/etc/nginx/vhost.d
+      - ./data/html:/usr/share/nginx/html
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    networks:
+      - default
+      - nginx-net
+
+#-----------------------------------------#
+#-------------|API Gateway|---------------#
+#-----------------------------------------#
+
+  gateway:
+    build:
+      context: ./bank-gateway-api
+    container_name: gateway
+    hostname: gateway
+    expose:
+      - "${GATEWAY_PORT}"
+    env_file:
+      - ./bank-gateway-api/.env
+    depends_on:
+      - client-ui
+    networks:
+      - gateway-net
+
+#-----------------------------------------#
+#---------------|Frontend|----------------#
+#-----------------------------------------#
+
+  client-ui:
+    build:
+      context: ./Internet-Bank-Client
+    container_name: client-ui
+    hostname: client-ui
+    expose:
+      - "${CLIENT_FRONT_PORT}"
+    env_file:
+      - ./Internet-Bank-Client/.env
+    depends_on:
+      - gateway
+    networks:
+      - nginx-net
+      - gateway-net
+
+#-----------------------------------------#
+#-----------|Storages and MQs|------------#
+#-----------------------------------------#
+
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    hostname: user-db
+    restart: always
+    env_file:
+      - ./user-service/.env
+    expose:
+      - "${USER_DB_PORT}"
+    networks:
+      - user-db-net
+    volumes:
+      - user_data:/var/lib/postgresql/data
+    command: ["-p", "${USER_DB_PORT}"]
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    env_file:
+      - ./rabbitmq/.env.rabbit
+    expose:
+      - "${RABBITMQ_PORT}"
+    ports:
+      - "${RABBITMQ_MANAGEMENT_PORT_EXTERNAL}:${RABBITMQ_MANAGEMENT_PORT_INTERNAL}"
+    networks:
+      - rabbit-net
+      - nginx-net
+
+  #----------------------------------------#
+  #----------------------------------------#
+  #----------------------------------------#
+
+networks:
+  nginx-net:
+    internal: True
+  gateway-net:
+    internal: True
+  user-db-net:
+    internal: True
+  rabbit-net:
+    internal: True
+
+volumes:
+  user_data:

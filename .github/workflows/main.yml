@@ -17,7 +17,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /root/dynamic-pricing/bank-app
+            cd /root/bank-app
             git fetch --all
             git reset --hard origin/main
             docker compose up --build --force-recreate -d --no-deps

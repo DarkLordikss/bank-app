@@ -9,8 +9,8 @@ services:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     restart: always
-    depends_on:
-      - client-ui
+    # depends_on:
+    #   - client-ui
     ports:
       - "80:80"
       - "443:443"
@@ -46,20 +46,20 @@ services:
   #---------------|Frontends|---------------#
   #-----------------------------------------#
 
-  client-ui:
-    build:
-      context: ./Internet-Bank-Client
-    container_name: client-ui
-    hostname: client-ui
-    expose:
-      - "5000"
-    env_file:
-      - ./Internet-Bank-Client/.env
-    # depends_on:
-    #   - gateway
-    networks:
-      - nginx-net
-      - gateway-net
+  # client-ui:
+  #   build:
+  #     context: ./Internet-Bank-Client
+  #   container_name: client-ui
+  #   hostname: client-ui
+  #   expose:
+  #     - "5000"
+  #   env_file:
+  #     - ./Internet-Bank-Client/.env
+  #   # depends_on:
+  #   #   - gateway
+  #   networks:
+  #     - nginx-net
+  #     - gateway-net
 
   #-----------------------------------------#
   #-------------|API Gateway|---------------#

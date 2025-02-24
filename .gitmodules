@@ -4,3 +4,6 @@
 [submodule "Internet-Bank-Client"]
 	path = Internet-Bank-Client
 	url = https://github.com/VictoriasCloud/Internet-Bank-Client
+[submodule "user-microservice-rust"]
+	path = user-microservice-rust
+	url = https://github.com/L11D/user-microservice-rust.git

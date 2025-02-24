@@ -90,11 +90,14 @@ services:
     hostname: user-service
     depends_on:
       - user-db
-    expose:
-      - "2288"
+    # expose:
+    #   - "2288"
+    ports:
+      - "2288:2288"  # Временно
     env_file:
       - ./user-microservice-rust/.env
     networks:
+      - default # Временно
       - gateway-net
       - user-db-net
 

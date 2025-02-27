@@ -20,5 +20,3 @@ jobs:
             cd /root/bank-app
             git fetch --all
             git reset --hard origin/main
-            docker compose down
-            docker compose up --build --force-recreate -d --no-deps

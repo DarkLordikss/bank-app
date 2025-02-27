@@ -7,3 +7,6 @@
 [submodule "user-microservice-rust"]
 	path = user-microservice-rust
 	url = git@github.com:L11D/user-microservice-rust.git
+[submodule "account-microservice"]
+	path = account-microservice
+	url = https://github.com/L11D/account-microservice

@@ -59,7 +59,6 @@ services:
       - gateway
     networks:
       - nginx-net
-      - gateway-net
 
   #-----------------------------------------#
   #-------------|API Gateway|---------------#
@@ -72,14 +71,12 @@ services:
     hostname: gateway
     depends_on:
       - user-service
-    ports:
-      - "7733:7733"  # Временно
-    # expose:
-    #   - "7733"
+    expose:
+      - "7733"
     env_file:
       - ./bank-gateway-api/.env
     networks:
-      - default  # Временно
+      - nginx-net
       - gateway-net
 
   #-----------------------------------------#
@@ -104,6 +101,24 @@ services:
       - gateway-net
       - user-db-net
 
+  account-service:
+    build:
+      context: ./account-microservice
+    container_name: account-service
+    hostname: account-service
+    depends_on:
+      - account-db
+#    expose:
+#      - "2289"
+    ports:
+      - "2289:2289"  # Временно
+    env_file:
+      - ./account-microservice/.env
+    networks:
+      # - default # Временно
+      - gateway-net
+      - account-db-net
+
   #-----------------------------------------#
   #---------------|Storages|----------------#
   #-----------------------------------------#
@@ -122,6 +137,21 @@ services:
     volumes:
       - user_data:/var/lib/postgresql/data
     command: ["-p", "5433"]
+
+  account-db:
+    image: postgres:15
+    container_name: account-db
+    hostname: account-db
+    restart: always
+    env_file:
+      - ./account-microservice/.env
+    expose:
+      - "5434"
+    networks:
+      - account-db-net
+    volumes:
+      - account_data:/var/lib/postgresql/data
+    command: [ "-p", "5434" ]
 
   #-----------------------------------------#
   #-----------|Message brokers|-------------#
@@ -155,6 +185,9 @@ networks:
     internal: True
   rabbit-net:
     internal: True
+  account-db-net:
+    internal: True
 
 volumes:
   user_data:
+  account_data:

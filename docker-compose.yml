@@ -71,6 +71,7 @@ services:
     hostname: gateway
     depends_on:
       - user-service
+      - account-service
     expose:
       - "7733"
     env_file:

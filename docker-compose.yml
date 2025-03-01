@@ -11,6 +11,7 @@ services:
     restart: always
     depends_on:
       - client-ui
+      - gateway
     ports:
       - "80:80"
       - "443:443"
@@ -59,6 +60,7 @@ services:
       - gateway
     networks:
       - nginx-net
+      - gateway-net
 
   #-----------------------------------------#
   #-------------|API Gateway|---------------#
@@ -72,11 +74,14 @@ services:
     depends_on:
       - user-service
       - account-service
+#    ports:
+#      - "7733:7733"  # Временно
     expose:
       - "7733"
     env_file:
       - ./bank-gateway-api/.env
     networks:
+#      - default  # Временно
       - nginx-net
       - gateway-net
 
@@ -104,19 +109,19 @@ services:
 
   account-service:
     build:
-      context: ./account-microservice
+      context: ./user-microservice-rust
     container_name: account-service
     hostname: account-service
     depends_on:
       - account-db
-#    expose:
-#      - "2289"
-    ports:
-      - "2289:2289"  # Временно
+    expose:
+      - "2289"
+    # ports:
+    #   - "2289:2289"  # Временно
     env_file:
       - ./account-microservice/.env
     networks:
-      - default # Временно
+      # - default # Временно
       - gateway-net
       - account-db-net
 

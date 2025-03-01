@@ -116,7 +116,7 @@ services:
     env_file:
       - ./account-microservice/.env
     networks:
-      # - default # Временно
+      - default # Временно
       - gateway-net
       - account-db-net
 

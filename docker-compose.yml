@@ -109,7 +109,7 @@ services:
 
   account-service:
     build:
-      context: ./user-microservice-rust
+      context: ./account-microservice
     container_name: account-service
     hostname: account-service
     depends_on:

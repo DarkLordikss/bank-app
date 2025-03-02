@@ -114,14 +114,14 @@ services:
     hostname: account-service
     depends_on:
       - account-db
-#    expose:
-#      - "2289"
-    ports:
-      - "2289:2289"  # Временно
+    expose:
+      - "2289"
+#    ports:
+#      - "2289:2289"  # Временно
     env_file:
       - ./account-microservice/.env
     networks:
-      - default # Временно
+#      - default # Временно
       - gateway-net
       - account-db-net
 

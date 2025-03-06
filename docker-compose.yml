@@ -74,6 +74,7 @@ services:
     depends_on:
       - user-service
       - account-service
+      - credit-service
 #    ports:
 #      - "7733:7733"  # Временно
     expose:
@@ -125,6 +126,24 @@ services:
       - gateway-net
       - account-db-net
 
+#     credit-service:
+#     build:
+#       context: ./credit-service
+#     container_name: credit-service
+#     hostname: credit-service
+#     depends_on:
+#       - credit-db
+#     expose:
+#       - "2290"
+# #    ports:
+# #      - "2290:2290"  # Временно
+#     env_file:
+#       - ./credit-service/.env
+#     networks:
+# #      - default # Временно
+#       - gateway-net
+#       - credit-db-net
+
   #-----------------------------------------#
   #---------------|Storages|----------------#
   #-----------------------------------------#
@@ -158,6 +177,21 @@ services:
     volumes:
       - account_data:/var/lib/postgresql/data
     command: [ "-p", "5434" ]
+
+  credit-db:
+    image: postgres:15
+    container_name: credit-db
+    hostname: credit-db
+    restart: always
+    env_file:
+      - ./credit-service/.env
+    expose:
+      - "5435"
+    networks:
+      - credit-db-net
+    volumes:
+      - credit_data:/var/lib/postgresql/data
+    command: [ "-p", "5435" ]
 
   #-----------------------------------------#
   #-----------|Message brokers|-------------#
@@ -193,7 +227,10 @@ networks:
     internal: True
   account-db-net:
     internal: True
+  credit-db-net:
+    internal: True
 
 volumes:
   user_data:
   account_data:
+  credit_data:

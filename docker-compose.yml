@@ -128,7 +128,7 @@ services:
 
 #     credit-service:
 #     build:
-#       context: ./credit-service
+#       context: ./credit_service
 #     container_name: credit-service
 #     hostname: credit-service
 #     depends_on:
@@ -138,7 +138,7 @@ services:
 # #    ports:
 # #      - "2290:2290"  # Временно
 #     env_file:
-#       - ./credit-service/.env
+#       - ./credit_service/.env
 #     networks:
 # #      - default # Временно
 #       - gateway-net
@@ -184,7 +184,7 @@ services:
     hostname: credit-db
     restart: always
     env_file:
-      - ./credit-service/.env
+      - ./credit_service/.env
     expose:
       - "5435"
     networks:

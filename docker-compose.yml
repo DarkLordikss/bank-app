@@ -74,7 +74,7 @@ services:
     depends_on:
       - user-service
       - account-service
-      - credit-service
+      # - credit-service
 #    ports:
 #      - "7733:7733"  # Временно
     expose:

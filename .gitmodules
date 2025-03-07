@@ -13,3 +13,6 @@
 [submodule "credit_service"]
 	path = credit_service
 	url = git@github.com:SirRommel/credit_service.git
+[submodule "Internet-Bank-Employee"]
+	path = Internet-Bank-Employee
+	url = git@github.com:VictoriasCloud/Internet-Bank-Employee.git

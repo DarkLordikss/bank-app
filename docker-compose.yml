@@ -12,7 +12,7 @@ services:
     depends_on:
       - client-ui
       - gateway
-      # - employee-ui
+      - employee-ui
     ports:
       - "80:80"
       - "443:443"
@@ -63,20 +63,20 @@ services:
       - nginx-net
       - gateway-net
 
-  # employee-ui:
-  #   build:
-  #     context: ./Internet-Bank-Employee
-  #   container_name: employee-ui
-  #   hostname: employee-ui
-  #   expose:
-  #     - "5001"
-  #   env_file:
-  #     - ./Internet-Bank-Employee/.env
-  #   depends_on:
-  #     - gateway
-  #   networks:
-  #     - nginx-net
-  #     - gateway-net
+  employee-ui:
+    build:
+      context: ./Internet-Bank-Employee
+    container_name: employee-ui
+    hostname: employee-ui
+    expose:
+      - "5001"
+    env_file:
+      - ./Internet-Bank-Employee/.env
+    depends_on:
+      - gateway
+    networks:
+      - nginx-net
+      - gateway-net
 
   #-----------------------------------------#
   #-------------|API Gateway|---------------#

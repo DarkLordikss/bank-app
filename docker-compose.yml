@@ -140,6 +140,7 @@ services:
     networks:
       - default # Временно
       - gateway-net
+      - rabbit-net
       - account-db-net
 
 #     credit-service:
@@ -158,6 +159,7 @@ services:
 #     networks:
 # #      - default # Временно
 #       - gateway-net
+#       - rabbit-net
 #       - credit-db-net
 
   #-----------------------------------------#

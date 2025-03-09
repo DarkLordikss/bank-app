@@ -90,7 +90,7 @@ services:
     depends_on:
       - user-service
       - account-service
-      # - credit-service
+      - credit-service
 #    ports:
 #      - "7733:7733"  # Временно
     expose:
@@ -143,24 +143,24 @@ services:
       - rabbit-net
       - account-db-net
 
-#     credit-service:
-#     build:
-#       context: ./credit_service
-#     container_name: credit-service
-#     hostname: credit-service
-#     depends_on:
-#       - credit-db
-#     expose:
-#       - "2290"
-# #    ports:
-# #      - "2290:2290"  # Временно
-#     env_file:
-#       - ./credit_service/.env
-#     networks:
-# #      - default # Временно
-#       - gateway-net
-#       - rabbit-net
-#       - credit-db-net
+  credit-service:
+    build:
+      context: ./credit_service
+    container_name: credit-service
+    hostname: credit-service
+    depends_on:
+      - credit-db
+    # expose:
+    #   - "2290"
+    ports:
+      - "2290:2290"  # Временно
+    env_file:
+      - ./credit_service/.env
+    networks:
+      - default # Временно
+      - gateway-net
+      - rabbit-net
+      - credit-db-net
 
   #-----------------------------------------#
   #---------------|Storages|----------------#

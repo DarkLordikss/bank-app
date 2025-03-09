@@ -188,9 +188,12 @@ services:
     restart: always
     env_file:
       - ./account-microservice/.env
-    expose:
-      - "5434"
+#    expose:
+#      - "5434" # Временно
+    ports:
+      - "5434:5434"
     networks:
+      - default # Временно
       - account-db-net
     volumes:
       - account_data:/var/lib/postgresql/data

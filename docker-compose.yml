@@ -101,6 +101,7 @@ services:
 #      - default  # Временно
       - nginx-net
       - gateway-net
+      - rabbit-account-net
 
   #-----------------------------------------#
   #---------------|Backends|----------------#
@@ -144,6 +145,7 @@ services:
       - rabbit-net
       - account-db-net
       - exchange-net
+      - rabbit-account-net
 
   credit-service:
     build:
@@ -253,6 +255,25 @@ services:
 #      - default # Временно
       - rabbit-net
 
+  rabbitmq-account:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    env_file:
+      - ./.env.rabbit.account
+    # expose:
+    #   - "5673"
+    #   - "15673:15673"
+    ports:
+      - "5673"  # Временно
+      - "15673:15673"
+    volumes:
+      - ./conf/myrabbit.conf:/etc/rabbitmq/rabbitmq.conf
+    networks:
+      - default # Временно
+      - rabbit-account-net
+
   #----------------------------------------#
   #----------------------------------------#
   #----------------------------------------#
@@ -265,6 +286,8 @@ networks:
   user-db-net:
     internal: True
   rabbit-net:
+    internal: True
+  rabbit-account-net:
     internal: True
   account-db-net:
     internal: True

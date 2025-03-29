@@ -270,7 +270,7 @@ networks:
     internal: True
   credit-db-net:
     internal: True
-  exchange-service:
+  exchange-net:
     internal: True
 
 volumes:

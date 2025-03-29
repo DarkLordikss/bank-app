@@ -16,3 +16,6 @@
 [submodule "Internet-Bank-Employee"]
 	path = Internet-Bank-Employee
 	url = git@github.com:VictoriasCloud/Internet-Bank-Employee.git
+[submodule "exchange-service"]
+	path = exchange-service
+	url = git@github.com:L11D/exchange-service.git

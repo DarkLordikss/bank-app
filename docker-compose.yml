@@ -131,6 +131,7 @@ services:
     hostname: account-service
     depends_on:
       - account-db
+      - exchange-service
     expose:
       - "2289"
 #    ports:
@@ -142,6 +143,7 @@ services:
       - gateway-net
       - rabbit-net
       - account-db-net
+      - exchange-net
 
   credit-service:
     build:
@@ -161,6 +163,22 @@ services:
       - gateway-net
       - rabbit-net
       - credit-db-net
+
+  exchange-service:
+    build:
+      context: ./exchange-service
+    container_name: exchange-service
+    hostname: exchange-service
+    expose:
+      - "2291"
+    # ports:
+    #   - "2290:2290"  # Временно
+    env_file:
+      - ./credit_service/.env
+    networks:
+      - default
+      - gateway-net
+      - exchange-net
 
   #-----------------------------------------#
   #---------------|Storages|----------------#
@@ -251,6 +269,8 @@ networks:
   account-db-net:
     internal: True
   credit-db-net:
+    internal: True
+  exchange-service:
     internal: True
 
 volumes:

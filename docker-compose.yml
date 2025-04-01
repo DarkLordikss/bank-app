@@ -262,16 +262,16 @@ services:
     restart: always
     env_file:
       - ./.env.rabbit.account
-    # expose:
-    #   - "5673"
-    #   - "15673:15673"
-    ports:
-      - "5673:5673"  # Временно
+    expose:
+      - "5673"
       - "15673:15673"
+    # ports:
+    #   - "5673:5673"  # Временно
+    #   - "15673:15673"
     volumes:
       - ./account-rabbit.conf:/etc/rabbitmq/rabbitmq.conf
     networks:
-      - default # Временно
+      # - default # Временно
       - rabbit-account-net
 
   #----------------------------------------#

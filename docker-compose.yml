@@ -135,12 +135,12 @@ services:
       - exchange-service
     expose:
       - "2289"
-#    ports:
- #     - "2289:2289"  # Временно
+    ports:
+      - "2289:2289"  # Временно
     env_file:
       - ./account-microservice/.env
     networks:
-#      - default # Временно
+      - default # Временно
       - gateway-net
       - rabbit-net
       - account-db-net
@@ -173,8 +173,8 @@ services:
     hostname: exchange-service
     expose:
       - "2291"
-    # ports:
-    #   - "2290:2290"  # Временно
+    ports:
+      - "2290:2290"  # Временно
     env_file:
       - ./credit_service/.env
     networks:

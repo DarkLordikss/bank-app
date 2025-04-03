@@ -174,7 +174,7 @@ services:
     expose:
       - "2291"
     ports:
-      - "2290:2290"  # Временно
+      - "2291:2291"  # Временно
     env_file:
       - ./credit_service/.env
     networks:

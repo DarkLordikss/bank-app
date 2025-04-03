@@ -116,12 +116,12 @@ services:
       - user-db
     expose:
       - "2288"
-    # ports:
-    #   - "2288:2288"  # Временно
+    ports:
+      - "2288:2288"  # Временно
     env_file:
       - ./user-microservice-rust/.env
     networks:
-      # - default # Временно
+      - default # Временно
       - gateway-net
       - user-db-net
 

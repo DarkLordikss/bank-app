@@ -176,7 +176,7 @@ services:
     ports:
       - "2291:2291"  # Временно
     env_file:
-      - ./credit_service/.env
+      - ./exchange-service/.env
     networks:
       - default
       - gateway-net

@@ -19,3 +19,6 @@
 [submodule "exchange-service"]
 	path = exchange-service
 	url = git@github.com:L11D/exchange-service.git
+[submodule "Internet-Bank-Auth"]
+	path = Internet-Bank-Auth
+	url = git@github.com:VictoriasCloud/Internet-Bank-Auth.git

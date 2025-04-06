@@ -170,7 +170,7 @@ services:
     depends_on:
       - credit-db
     expose:
-      - "2290"
+      - "2291"
     ports:
       - "2290:2290"  # Временно
     env_file:

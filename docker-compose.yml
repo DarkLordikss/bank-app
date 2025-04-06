@@ -136,7 +136,7 @@ services:
     env_file:
       - ./user-microservice-rust/.env
     networks:
-      # - default # Временно
+      - default # Временно
       - gateway-net
       - user-db-net
 

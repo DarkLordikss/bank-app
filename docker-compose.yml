@@ -78,6 +78,21 @@ services:
       - nginx-net
       - gateway-net
 
+  auth-ui:
+    build:
+      context: ./Internet-Bank-Auth
+    container_name: auth-ui
+    hostname: auth-ui
+    expose:
+      - "5001"
+    env_file:
+      - ./Internet-Bank-Auth/.env
+    depends_on:
+      - gateway
+    networks:
+      - nginx-net
+      - gateway-net
+
   #-----------------------------------------#
   #-------------|API Gateway|---------------#
   #-----------------------------------------#
@@ -265,13 +280,13 @@ services:
     expose:
       - "5673"
       - "15673:15673"
-    ports:
-      - "5673:5673"  # Временно
-      - "15673:15673"
+    # ports:
+    #   - "5673:5673"  # Временно
+    #   - "15673:15673"
     volumes:
       - ./account-rabbit.conf:/etc/rabbitmq/rabbitmq.conf
     networks:
-      - default # Временно
+      # - default # Временно
       - rabbit-account-net
 
   #----------------------------------------#

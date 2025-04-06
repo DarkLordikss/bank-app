@@ -131,8 +131,8 @@ services:
       - user-db
     expose:
       - "2288"
-    # ports:
-    #   - "2288:2288"  # Временно
+    ports:
+      - "2288:2288"  # Временно
     env_file:
       - ./user-microservice-rust/.env
     networks:
@@ -150,12 +150,12 @@ services:
       - exchange-service
     expose:
       - "2289"
-    # ports:
-    #   - "2289:2289"  # Временно
+    ports:
+      - "2289:2289"  # Временно
     env_file:
       - ./account-microservice/.env
     networks:
-      # - default # Временно
+      - default # Временно
       - gateway-net
       - rabbit-net
       - account-db-net
@@ -171,12 +171,12 @@ services:
       - credit-db
     expose:
       - "2290"
-    # ports:
-    #   - "2290:2290"  # Временно
+    ports:
+      - "2290:2290"  # Временно
     env_file:
       - ./credit_service/.env
     networks:
-      # - default # Временно
+      - default # Временно
       - gateway-net
       - rabbit-net
       - credit-db-net
@@ -188,8 +188,8 @@ services:
     hostname: exchange-service
     expose:
       - "2291"
-    # ports:
-    #   - "2291:2291"  # Временно
+    ports:
+      - "2291:2291"  # Временно
     env_file:
       - ./exchange-service/.env
     networks:

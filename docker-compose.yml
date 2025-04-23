@@ -304,7 +304,7 @@ services:
     container_name: prometheus
     restart: always
     hostname: prometheus
-     volumes:
+    volumes:
       - ./configs/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:

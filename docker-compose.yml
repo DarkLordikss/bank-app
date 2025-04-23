@@ -311,6 +311,7 @@ services:
       - "9090:9090"
     networks:
       - default
+      - prometheus-net
 
   grafana:
     image: grafana/grafana

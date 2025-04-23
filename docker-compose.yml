@@ -62,6 +62,7 @@ services:
     networks:
       - nginx-net
       - gateway-net
+      - prometheus-net
 
   employee-ui:
     build:
@@ -77,6 +78,7 @@ services:
     networks:
       - nginx-net
       - gateway-net
+      - prometheus-net
 
   auth-ui:
     build:
@@ -92,6 +94,7 @@ services:
     networks:
       - nginx-net
       - gateway-net
+      - prometheus-net
 
   #-----------------------------------------#
   #-------------|API Gateway|---------------#
@@ -117,6 +120,7 @@ services:
       - nginx-net
       - gateway-net
       - rabbit-account-net
+      - prometheus-net
 
   #-----------------------------------------#
   #---------------|Backends|----------------#
@@ -139,6 +143,7 @@ services:
       - default # Временно
       - gateway-net
       - user-db-net
+      - prometheus-net
 
   account-service:
     build:
@@ -161,6 +166,7 @@ services:
       - account-db-net
       - exchange-net
       - rabbit-account-net
+      - prometheus-net
 
   credit-service:
     build:
@@ -180,6 +186,7 @@ services:
       - gateway-net
       - rabbit-net
       - credit-db-net
+      - prometheus-net
 
   exchange-service:
     build:
@@ -196,6 +203,7 @@ services:
       - default
       - gateway-net
       - exchange-net
+      - prometheus-net
 
   #-----------------------------------------#
   #---------------|Storages|----------------#
@@ -290,8 +298,36 @@ services:
       - rabbit-account-net
 
   #----------------------------------------#
+  #-------------|Monitoring|---------------#
   #----------------------------------------#
-  #----------------------------------------#
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - default
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    expose:
+      - "3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - VIRTUAL_HOST=grafana.bank.dynamic-pricing.ru
+      - LETSENCRYPT_HOST=grafana.bank.dynamic-pricing.ru
+      - LETSENCRYPT_EMAIL=minecraftmine161@gmail.com
+    networks:
+      - nginx-net
+      - prometheus-net
+    depends_on:
+      - prometheus
 
 networks:
   nginx-net:
@@ -309,6 +345,8 @@ networks:
   credit-db-net:
     internal: True
   exchange-net:
+    internal: True
+  prometheus-net:
     internal: True
 
 volumes:

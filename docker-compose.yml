@@ -331,6 +331,8 @@ services:
     networks:
       - nginx-net
       - prometheus-net
+    volumes:
+      - grafana-storage:/var/lib/grafana
     depends_on:
       - prometheus
 
@@ -359,3 +361,4 @@ volumes:
   account_data:
   credit_data:
   prometheus-data:
+  grafana-storage:

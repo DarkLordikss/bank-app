@@ -303,8 +303,10 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: always
+    hostname: prometheus
     volumes:
-      - ./prometheus:/etc/prometheus/
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
     ports:
       - "9090:9090"
     networks:
@@ -314,6 +316,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    hostname: grafana
     restart: always
     expose:
       - "3000"
@@ -352,3 +355,4 @@ volumes:
   user_data:
   account_data:
   credit_data:
+  prometheus-data:

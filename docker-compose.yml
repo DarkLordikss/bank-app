@@ -328,7 +328,7 @@ services:
       - VIRTUAL_HOST=grafana.bank.dynamic-pricing.ru
       - LETSENCRYPT_HOST=grafana.bank.dynamic-pricing.ru
       - LETSENCRYPT_EMAIL=minecraftmine161@gmail.com
-      - VIRTUAL_PORT=3000 
+      - VIRTUAL_PORT=3000
     networks:
       - nginx-net
       - prometheus-net
